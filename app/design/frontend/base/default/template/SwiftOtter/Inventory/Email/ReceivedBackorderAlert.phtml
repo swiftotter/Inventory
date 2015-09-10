@@ -1,0 +1,33 @@
+<?php
+/** @var SwiftOtter_Inventory_Block_Email_ReceivedBackorder $this */
+?>
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+    <tr>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>SKU</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Product</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>QTY Ordered</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>QTY to Ship</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Order in Stock</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Order ID</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Customer Name</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong></strong></p></center></td>
+    </tr>
+    <?php /** @var Mage_Sales_Model_Order_Item $orderItem */ ?>
+    <?php foreach($this->getOrderItems() as $orderItem):
+        $product = $orderItem->getProduct();
+        $order = $orderItem->getOrder();
+    ?>
+    <tr>
+        <td style="text-align:center"><?php echo $product->getSku();?></td>
+        <td style="text-align:center"><?php echo $product->getName();?></td>
+        <td style="text-align:center"><?php echo round($orderItem->getQtyOrdered());?></td>
+        <td style="text-align:center"><?php echo $orderItem->getQtyOrdered() - $orderItem->getQtyBackordered() - $orderItem->getQtyShipped();?><br/>
+        <?php if ($orderItem->getQtyBackordered() > 0):?><small>(still waiting on <?php echo $orderItem->getQtyBackordered();?> more)</small><?php endif;?></td>
+        <td style="text-align:center"><?php echo $order->getHasBackorderedItems() ? 'Yes':'No';?></td>
+        <td style="text-align:center"><?php echo $order->getIncrementId();?></td>
+        <td style="text-align:center"><?php echo $order->getCustomerFirstname();?> <?php echo $order->getCustomerLastname();?></td>
+        <td style="text-align:center"><a href="<?php echo $this->getUrl('*/sales_order/view', array('order_id' => $order->getId()));?>" target="_blank">View Order</a></td>
+    </tr>
+    <?php endforeach;?>
+</table>

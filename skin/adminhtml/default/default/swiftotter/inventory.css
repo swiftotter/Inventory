@@ -1,0 +1,12 @@
+button.complete {
+    margin-right:50px;
+}
+
+button.complete span {
+    background-image: url(../images/icon-enabled.png);
+    padding-left:20px;
+}
+
+#inventory_grid_massaction-form {
+    display:none;
+}

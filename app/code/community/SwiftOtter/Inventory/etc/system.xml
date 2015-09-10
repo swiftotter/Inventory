@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <cataloginventory>
+            <groups>
+                <management translate="label">
+                    <label>Inventory Catalog Management (SwiftOtter)</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <backordered_item_message translate="label">
+                            <label>Backordered Item Message:</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>100</sort_order>
+                            <tooltip>[BACKORDER_QTY], [QTY]</tooltip>
+                        </backordered_item_message>
+
+                        <backordered_item_message_eta translate="label">
+                            <label>Backordered Item Message w/ ETA:</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>200</sort_order>
+                            <tooltip>[BACKORDER_QTY], [QTY], [ETA]</tooltip>
+                        </backordered_item_message_eta>
+
+                        <alert_email translate="label">
+                            <label>Item Below Reorder Point Alert Email:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </alert_email>
+                        <alert_email_to translate="label">
+                            <label>Send Item Below Reorder Alert Emails To:</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>400</sort_order>
+                            <tooltip>Separate multiple with a semicolon: ;</tooltip>
+                        </alert_email_to>
+
+                        <received_inventory_email_enabled translate="label">
+                            <label>Enabled Received Inventory Email:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </received_inventory_email_enabled>
+                        <received_inventory_email translate="label">
+                            <label>Received Inventory Email Template:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </received_inventory_email>
+                        <received_inventory_email_to translate="label">
+                            <label>Send Received Inventory To:</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>700</sort_order>
+                            <tooltip>Separate multiple with a semicolon: ;</tooltip>
+                        </received_inventory_email_to>
+
+                        <ignore_quantity_threshold translate="label">
+                            <label>Ignore Qty on Hand above:</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <sort_order>800</sort_order>
+                            <tooltip>Ignore Qty on Hand (in reports) when it is over this amount.</tooltip>
+                        </ignore_quantity_threshold>
+                    </fields>
+                </management>
+            </groups>
+        </cataloginventory>
+    </sections>
+</config>

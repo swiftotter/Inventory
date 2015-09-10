@@ -1,0 +1,11 @@
+app/code/local/SwiftOtter/*                                     app/code/local/SwiftOtter/
+
+app/design/adminhtml/default/default/template/SwiftOtter/*      app/design/adminhtml/default/default/template/SwiftOtter/
+app/design/adminhtml/default/default/layout/SwiftOtter/*        app/design/adminhtml/default/default/layout/SwiftOtter/
+app/design/frontend/base/default/template/SwiftOtter/*          app/design/frontend/base/default/template/SwiftOtter/
+app/design/frontend/base/default/layout/SwiftOtter/*            app/design/frontend/base/default/layout/SwiftOtter/
+
+app/etc/modules/*                                               app/etc/modules/
+app/etc/locale/en_US/template/email/swiftotter/inventory	app/etc/locale/en_US/template/email/swiftotter/inventory
+
+skin/adminhtml/default/default/swiftotter/*                     skin/adminhtml/default/default/swiftotter

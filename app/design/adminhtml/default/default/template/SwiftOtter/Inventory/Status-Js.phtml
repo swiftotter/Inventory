@@ -1,0 +1,46 @@
+<?php
+/**
+ * 
+ *
+ * @author Joseph Maxwell
+ * @copyright Swift Otter Studios, 10/28/2013
+ * @package default
+ **/ ?>
+
+<script type="text/javascript">
+    var StatusEdit = function() {
+        var base = this;
+
+        base.initialize = function(url) {
+            if (base.options === undefined) {
+                base.options = {};
+            }
+
+            base.options.url = url;
+
+            $$('.status-edit').each(function(element) {
+                $(element).on('change', base.update);
+            });
+        }
+
+        base.update = function() {
+            var element = $(this);
+
+            new Ajax.Request(base.options.url, {
+                loaderArea: false,
+                method:'post',
+                parameters: {
+                    status: element.getValue(),
+                    product_id: element.readAttribute('data-id')
+                },
+                onSuccess: function(response) {
+
+                }
+            });
+        }
+    }
+
+
+    var statusEdit = new StatusEdit();
+    statusEdit.initialize('<?php echo $this->getUrl('*/inventory_product_status/update/');?>');
+</script>

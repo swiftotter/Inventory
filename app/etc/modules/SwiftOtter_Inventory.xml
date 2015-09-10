@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SwiftOtter_Inventory>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <SwiftOtter_Base/>
+                <SwiftOtter_Sales/>
+                <Mage_Checkout/>
+                <Mage_CatalogInventory/>
+            </depends>
+        </SwiftOtter_Inventory>
+    </modules>
+</config>

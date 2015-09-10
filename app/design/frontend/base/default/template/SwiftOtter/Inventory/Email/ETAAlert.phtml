@@ -1,0 +1,52 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2013 (c) SwiftOtter Studios
+ *
+ * @author Joseph Maxwell
+ * @copyright Swift Otter Studios, 1/5/15
+ * @package default
+ **/
+?>
+
+<?php if ($this->isShowUser() && $name = $this->getUser()):?>
+<strong>Changed by: <?php echo $name;?></strong>
+<?php endif;?>
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+    <tr>
+        <?php if ($this->getEtaColumn()):?>
+            <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>ETA</strong></p></center></td>
+        <?php endif;?>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>SKU</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Product</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong></strong></p></center></td>
+    </tr>
+    <?php /** @var Mage_Catalog_Model_Product $stockItem */ ?>
+    <?php foreach($this->getProducts() as $product):?>
+    <tr>
+        <?php if ($this->getEtaColumn()):?>
+            <td style="text-align:center">
+                <?php if ($product->getFriendlyEta()):?>
+                    <?php echo $product->getFriendlyEta();?>
+                <?php else: ?>
+                    <?php echo $product->getEta();?>
+                <?php endif;?>
+            </td>
+        <?php endif;?>
+        <td style="text-align:center"><?php echo $product->getSku();?></td>
+        <td style="text-align:center"><?php echo $product->getName();?></td>
+        <td style="text-align:center"><a href="<?php echo Mage::getUrl('adminhtml/catalog_product/edit', array('id' => $product->getId()));?>">View Product</a></td>
+    </tr>
+    <?php endforeach;?>
+</table>

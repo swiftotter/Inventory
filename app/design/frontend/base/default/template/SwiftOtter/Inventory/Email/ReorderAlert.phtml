@@ -1,0 +1,22 @@
+<?php
+?>
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+    <tr>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>SKU</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Product</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>Reorder Point</strong></p></center></td>
+        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>QTY Available</strong></p></center></td>
+    </tr>
+    <?php /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */ ?>
+    <?php foreach($this->getStockItems() as $stockItem):
+
+        $product = Mage::getModel('catalog/product')->load($stockItem->getProductId());?>
+    <tr>
+        <td style="text-align:center"><?php echo $product->getSku();?></td>
+        <td style="text-align:center"><?php echo $product->getName();?></td>
+        <td style="text-align:center"><?php echo round($stockItem->getReorderPoint());?></td>
+        <td style="text-align:center"><?php echo round($stockItem->getQty());?></td>
+    </tr>
+    <?php endforeach;?>
+</table>

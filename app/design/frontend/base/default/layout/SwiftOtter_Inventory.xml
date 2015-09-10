@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+    <inventory_reorder_alert_email>
+        <block type="SwiftOtter_Inventory/Email_InventoryAlert" template="SwiftOtter/Inventory/Email/ReorderAlert.phtml" name="inventory_alert"/>
+    </inventory_reorder_alert_email>
+
+    <inventory_received_backorder_alert_email>
+        <block type="SwiftOtter_Inventory/Email_ReceivedBackorderAlert" template="SwiftOtter/Inventory/Email/ReceivedBackorderAlert.phtml" name="received_backorder_alert"/>
+    </inventory_received_backorder_alert_email>
+
+    <inventory_drop_ship_notification_email>
+        <block type="SwiftOtter_Inventory/Email_DropShipNotification" template="SwiftOtter/Inventory/Email/DropShipNotification.phtml" name="drop_ship_notification"/>
+    </inventory_drop_ship_notification_email>
+
+    <sales_email_order_items>
+        <reference name="additional.product.info">
+            <block type="SwiftOtter_Inventory/Email_BackorderStatus" name="backorder.status"/>
+        </reference>
+    </sales_email_order_items>
+</layout>

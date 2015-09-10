@@ -1,0 +1,153 @@
+<form action="<?php echo $this->getUrl('*/*/update', array('_current'=>true));?>" method="POST" id="inventory_form">
+    <input type="hidden" name="in_update_product" id="in_update_product" value=""/>
+    <input type="hidden" name="perform_silent" id="perform_silent" value="0" />
+    <input type="hidden" name="form_key" id="form_key" value=""/>
+    <input type="hidden" name="allow_edit_qty_available_internal" id="allow_edit_qty_available_internal" value=""/>
+
+</form>
+
+<script language="javascript">
+    var productUpdates = {};
+    $('in_update_product').value = $H(productUpdates).toQueryString();
+
+    $('allow_edit_qty_available_internal').observe('change', updateEditCapabilities);
+
+    function updateEditCapabilities() {
+        var checked = $('allow_edit_qty_available_internal').getValue();
+
+//        if (checked) {
+//            $$('.qty_available').each(function(element) {
+//                element.show();
+//            });
+//        } else {
+            $$('.qty_available').each(function(element) {
+                element.hide();
+                var parent = element.up();
+                if (parent) {
+                    var original = parent.select('.original_' + element.readAttribute('name'));
+                    if (original.length) {
+                        original = original[0];
+                        element.setValue(original.getValue());
+                    }
+                }
+            });
+//        }
+    };
+
+    function registerProductUpdate(grid, element, checked){
+        if(checked){
+            if(element.controls){
+                productUpdates[element.value] = {};
+
+                $H(element.controls).each(function(control) {
+                    var control = control[1];
+                    if (control !== element) {
+                        control.disabled = false;
+
+                        productUpdates[element.value][control.name] = control.value;
+                    }
+                });
+            }
+        }
+        else{
+            if(element.controls){
+                $H(element.controls).each(function(control) {
+                    if (control[1] !== element) {
+                        control[1].disabled = true;
+                    }
+                });
+            }
+            productUpdates[element.value] = {};
+        }
+        updateJSON();
+        grid.reloadParams = {'selected_products[]':$H(productUpdates).keys()};
+    }
+    function categoryProductRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                inventory_gridJsObject.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+    function valueChange(event){
+        var element = Event.element(event),
+            checkbox = element.controls.checkbox;
+
+        if (element && checkbox && checkbox.checked){
+            if (productUpdates[checkbox.value] === undefined) {
+                productUpdates[checkbox.value] = {};
+            }
+
+            productUpdates[checkbox.value][element.name] = element.value;
+            updateJSON();
+        }
+    }
+
+    function textClick(event) {
+        var element = Event.element(event),
+            checkbox = element.controls.checkbox;
+
+        if (element && checkbox && !checkbox.checked) {
+            inventory_gridJsObject.setCheckboxChecked(checkbox, true);
+        }
+    }
+
+    function updateJSON()
+    {
+        $('in_update_product').value = JSON.stringify($H(productUpdates));
+    }
+
+    var tabIndex = 1000,
+        rowCount = 1;
+    function categoryProductRowInit(grid, row){
+        var controls = {};
+        var names = ['raw_cost', 'price', 'special_price', 'qty_available', 'original_qty_available', 'qty_on_hand', 'original_qty_on_hand', 'qty_adjustment', 'reorder_point'];
+
+        var checkbox = $(row).getElementsByClassName('massaction-checkbox')[0];
+        controls.checkbox = checkbox;
+        checkbox.controls = controls;
+
+        rowCount++;
+
+        if (checkbox) {
+            names.each(function(name, index) {
+               if ($(row).getElementsByClassName(name).length) {
+                   var element = $(row).getElementsByClassName(name)[0];
+
+                   controls[name] = element;
+                   element.controls = controls;
+                   element.disabled = false;//!checkbox.checked;
+                   element.tabIndex = (tabIndex * index) + rowCount;
+
+                   Event.observe(element, 'blur', valueChange);
+                   Event.observe(element, 'click', textClick);
+                   Event.observe(element, 'keypress', textClick);
+               }
+            });
+        }
+    }
+
+    /**
+     * Submit edit updates
+     */
+     function massEditSubmit(silent) {
+        var inventoryForm = $('inventory_form');
+
+        $('perform_silent').value = silent !== undefined;
+
+        $('form_key').value = FORM_KEY;
+        inventoryForm.submit();
+    }
+
+
+    inventory_gridJsObject.rowClickCallback = categoryProductRowClick;
+    inventory_gridJsObject.initRowCallback = categoryProductRowInit;
+    inventory_gridJsObject.checkboxCheckCallback = registerProductUpdate;
+    inventory_gridJsObject.rows.each(function(row){categoryProductRowInit(inventory_gridJsObject, row)});
+
+    updateEditCapabilities();
+</script>

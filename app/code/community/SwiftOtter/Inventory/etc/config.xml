@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SwiftOtter_Inventory>
+            <version>0.0.26</version>
+        </SwiftOtter_Inventory>
+    </modules>
+    <global>
+        <models>
+            <SwiftOtter_Inventory>
+                <class>SwiftOtter_Inventory_Model</class>
+                <resourceModel>SwiftOtter_Inventory_Resource</resourceModel>
+            </SwiftOtter_Inventory>
+
+            <SwiftOtter_Inventory_Resource>
+                <class>SwiftOtter_Inventory_Model_Resource</class>
+                <entities>
+                    <Vendor>
+                        <table>swiftotter_inventory_vendor</table>
+                    </Vendor>
+                    <ReceivedBackorder>
+                        <table>swiftotter_inventory_recieved_backorder</table>
+                    </ReceivedBackorder>
+                    <AdjustmentLog>
+                        <table>swiftotter_inventory_adjustment_log</table>
+                    </AdjustmentLog>
+                </entities>
+            </SwiftOtter_Inventory_Resource>
+            <cataloginventory>
+                <rewrite>
+                    <!-- TODO: Destroy the override eventually -->
+                    <stock>SwiftOtter_Inventory_Model_Override_CatalogInventory_Stock</stock>
+                </rewrite>
+            </cataloginventory>
+        </models>
+
+        <blocks>
+            <SwiftOtter_Inventory>
+                <class>SwiftOtter_Inventory_Block</class>
+            </SwiftOtter_Inventory>
+            <adminhtml>
+                <rewrite>
+                    <!-- TODO: Destroy the override, but Magento is not overly friendly to this... -->
+                    <catalog_product_edit_tab_inventory>SwiftOtter_Inventory_Block_Override_Adminhtml_Catalog_Product_Edit_Tab_Inventory</catalog_product_edit_tab_inventory>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <SwiftOtter_Inventory>
+                <class>SwiftOtter_Inventory_Helper</class>
+            </SwiftOtter_Inventory>
+        </helpers>
+        <resources>
+            <SwiftOtter_Inventory>
+                <setup>
+                    <module>SwiftOtter_Inventory</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </SwiftOtter_Inventory>
+        </resources>
+
+        <events>
+            <sales_creditmemo_item_save_before>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesCreditmemoItemSaveBefore</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_creditmemo_item_save_before>
+            <sales_shipment_item_save_before>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesShipmentItemSaveBefore</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_shipment_item_save_before>
+            <!--<sales_quote_product_add_after>-->
+            <!--<observers>-->
+            <!--<SwiftOtter_Inventory>-->
+            <!--<class>SwiftOtter_Inventory_Model_Observer</class>-->
+            <!--<method>salesQuoteProductAddAfter</method>-->
+            <!--</SwiftOtter_Inventory>-->
+            <!--</observers>-->
+            <!--</sales_quote_product_add_after>-->
+
+            <sales_order_shipment_save_before>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_order_shipment_save_before>
+
+            <sales_order_place_before>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesOrderPlaceBefore</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_order_place_before>
+
+            <checkout_submit_all_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>checkoutSubmitAllAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </checkout_submit_all_after>
+
+            <swiftotter_inventory_product_qty_changed>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>swiftotterInventoryProductQtyChanged</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </swiftotter_inventory_product_qty_changed>
+
+            <swiftotter_inventory_mass_edit_after_update>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>swiftotterInventoryMassEditAfterUpdate</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </swiftotter_inventory_mass_edit_after_update>
+
+            <cataloginventory_stock_item_save_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>cataloginventoryStockItemSaveAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </cataloginventory_stock_item_save_after>
+
+            <sales_order_invoice_register>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesOrderInvoiceRegister</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_order_invoice_register>
+        </events>
+        <template>
+            <email>
+                <cataloginventory_management_alert_email>
+                    <label>Inventory Reorder Point Template</label>
+                    <file>swiftotter/inventory/reorder.html</file>
+                    <type>html</type>
+                </cataloginventory_management_alert_email>
+                <cataloginventory_management_received_inventory_email>
+                    <label>Received Inventory Template</label>
+                    <file>swiftotter/inventory/received_backorder.html</file>
+                    <type>html</type>
+                </cataloginventory_management_received_inventory_email>
+            </email>
+        </template>
+
+        <sales>
+            <quote>
+                <item>
+                    <product_attributes>
+                        <drop_shipped/>
+                        <eta/>
+                        <enable_increment_product_qty/>
+                        <increment_product_id/>
+                        <increment_product_qty/>
+                        <disable_backorder/>
+                        <drop_shipped/>
+                        <ship_separately/>
+                        <vendor_id/>
+                    </product_attributes>
+                </item>
+            </quote>
+        </sales>
+
+        <swiftotter_email>
+            <notifications>
+                <drop_shipped_item_invoice>
+                    <label>Drop-shipped item is invoiced</label>
+                </drop_shipped_item_invoice>
+                <inventory_alert>
+                    <label>Inventory level alert</label>
+                </inventory_alert>
+                <eta_alert>
+                    <label>ETA alert</label>
+                </eta_alert>
+                <eta_changed>
+                    <label>ETA changed notification</label>
+                </eta_changed>
+            </notifications>
+        </swiftotter_email>
+    </global>
+
+    <default>
+        <cataloginventory>
+            <management>
+                <ignore_quantity_threshold>60000</ignore_quantity_threshold>
+            </management>
+        </cataloginventory>
+    </default>
+
+    <crontab>
+        <jobs>
+            <SwiftOtter_Inventory_Update>
+                <schedule>
+                    <cron_expr>10 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>SwiftOtter_Inventory/Cron::inventoryUpdate</model>
+                </run>
+            </SwiftOtter_Inventory_Update>
+            <SwiftOtter_Inventory_ETA_Check>
+                <schedule>
+                    <cron_expr>0 10 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>SwiftOtter_Inventory/Cron::checkETA</model>
+                </run>
+            </SwiftOtter_Inventory_ETA_Check>
+        </jobs>
+    </crontab>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <SwiftOtter_Inventory before="Mage_Adminhtml">SwiftOtter_Inventory_Admin</SwiftOtter_Inventory>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <frontend>
+        <layout>
+            <updates>
+                <SwiftOtter_Inventory>
+                    <file>SwiftOtter_Inventory.xml</file>
+                </SwiftOtter_Inventory>
+            </updates>
+        </layout>
+
+        <routers>
+            <SwiftOtter_Inventory>
+                <use>standard</use>
+                <args>
+                    <module>SwiftOtter_Inventory_Frontend</module>
+                    <frontName>inventorytest</frontName>
+                </args>
+            </SwiftOtter_Inventory>
+        </routers>
+
+        <events>
+            <sales_quote_item_qty_set_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesQuoteItemQtySetAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_quote_item_qty_set_after>
+        </events>
+
+
+    </frontend>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <swiftotter_inventory>
+                    <file>SwiftOtter/Inventory.xml</file>
+                </swiftotter_inventory>
+            </updates>
+        </layout>
+        <events>
+            <catalog_product_save_commit_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory/Observer</class>
+                        <method>catalogProductSaveCommitAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </catalog_product_save_commit_after>
+            <sales_order_invoice_item_collection_load_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesOrderInvoiceItemCollectionLoadAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_order_invoice_item_collection_load_after>
+            <controller_action_layout_render_before_adminhtml_sales_order_invoice_new>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>controllerActionLayoutRenderBeforeAdminhtmlSalesOrderInvoiceNew</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </controller_action_layout_render_before_adminhtml_sales_order_invoice_new>
+            <core_copy_fieldset_sales_convert_order_item_to_invoice_item>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>coreCopyFieldsetSalesConvertOrderItemToInvoiceItem</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </core_copy_fieldset_sales_convert_order_item_to_invoice_item>
+            <catalog_product_load_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>catalogProductLoadAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </catalog_product_load_after>
+            <cataloginventory_stock_item_load_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>cataloginventoryStockItemLoadAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </cataloginventory_stock_item_load_after>
+
+            <sales_shipment_item_save_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesShipmentItemSaveAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_shipment_item_save_after>
+            <sales_order_item_collection_load_after>
+                <observers>
+                    <SwiftOtter_Inventory>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Inventory_Model_Observer</class>
+                        <method>salesOrderItemCollectionLoadAfter</method>
+                    </SwiftOtter_Inventory>
+                </observers>
+            </sales_order_item_collection_load_after>
+        </events>
+    </adminhtml>
+</config>

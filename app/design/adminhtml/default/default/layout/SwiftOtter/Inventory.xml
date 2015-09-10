@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_inventory_edit_index>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Edit" name="inventory_edit" template="SwiftOtter/Base/GridContainer.phtml">
+                <!--<block type="core/text_list" name="filter">-->
+                    <!--<block type="SwiftOtter_Inventory/Admin_Edit_Control" name="filter.form"/>-->
+                <!--</block>-->
+            </block>
+            <block type="SwiftOtter_Inventory/Admin_Edit_ControlJs" name="filter.js" template="SwiftOtter/Inventory/ControlJs.phtml"/>
+            <block type="adminhtml/template" name="inventory_js" template="SwiftOtter/Inventory/Js.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>swiftotter/inventory.css</stylesheet></action>
+        </reference>
+    </adminhtml_inventory_edit_index>
+    <adminhtml_inventory_edit_grid>
+        <block type="SwiftOtter_Inventory/Admin_Edit_Grid" name="root" output="toHtml" />
+        <block type="core/template" name="inventory_js" template="SwiftOtter/Inventory/Js.phtml"/>
+    </adminhtml_inventory_edit_grid>
+
+    <adminhtml_inventory_report_vendor>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_InventoryVendor" name="inventory_vendor_report" />
+        </reference>
+    </adminhtml_inventory_report_vendor>
+    <adminhtml_inventory_report_vendorgrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_InventoryVendor_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_vendorgrid>
+
+    <adminhtml_inventory_report_currentbackorders>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_CurrentBackorders" name="inventory_current_backorders_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_currentbackorders>
+    <adminhtml_inventory_report_currentbackordersgrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_CurrentBackorders_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_currentbackordersgrid>
+
+    <adminhtml_inventory_report_shippablebackorders>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_ShippableBackorders" name="inventory_shippable_backorders_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_shippablebackorders>
+    <adminhtml_inventory_report_shippablebackordersgrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_ShippableBackorders_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_shippablebackordersgrid>
+
+    <adminhtml_inventory_report_vendorproduct>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_VendorProduct" name="inventory_vendor_product_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_vendorproduct>
+    <adminhtml_inventory_report_vendorproductgrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_VendorProduct_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_vendorproductgrid>
+
+    <adminhtml_inventory_report_adjustmentlog>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_AdjustmentLog" name="inventory_adjustment_log_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_adjustmentlog>
+    <adminhtml_inventory_report_adjustmentloggrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_AdjustmentLog_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_adjustmentloggrid>
+
+    <adminhtml_inventory_report_salesordering>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_SalesOrdering" name="inventory_sales_ordering_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+            <block type="SwiftOtter_Base/Admin_Form_Filter_Js" name="inventory_sales_ordering_report_js" template="SwiftOtter/Base/Filter/Js.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_salesordering>
+    <adminhtml_inventory_report_salesorderinggrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_SalesOrdering_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_salesorderinggrid>
+
+    <adminhtml_inventory_report_stockstatus>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Report_StockStatus" name="inventory_stock_status_report" template="SwiftOtter/Base/GridContainer.phtml"/>
+            <block type="SwiftOtter_Base/Admin_Form_Filter_Js" name="inventory_stock_status_report_js" template="SwiftOtter/Base/Filter/Js.phtml"/>
+            <block type="SwiftOtter_Inventory/Admin_Report_StockStatus_Js" name="inventory_stock_status_report_js" template="SwiftOtter/Inventory/Status-Js.phtml"/>
+        </reference>
+    </adminhtml_inventory_report_stockstatus>
+    <adminhtml_inventory_report_stockstatusgrid>
+        <block type="SwiftOtter_Inventory/Admin_Report_StockStatus_Grid" name="root" output="toHtml" />
+    </adminhtml_inventory_report_stockstatusgrid>
+
+    <adminhtml_vendor_index>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Vendor" name="vendors" />
+        </reference>
+    </adminhtml_vendor_index>
+
+    <adminhtml_vendor_edit>
+        <reference name="content">
+            <block type="SwiftOtter_Inventory/Admin_Vendor_Edit" name="vendors" />
+        </reference>
+    </adminhtml_vendor_edit>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="order_items">
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>SwiftOtter/Inventory/Override/items_renderer_default.phtml</template></action>
+            <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>SwiftOtter/Inventory/Override/sales_items_column_qty.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="order_items">
+            <action method="addItemRender"><type>default</type><block>adminhtml/sales_items_renderer_default</block><template>SwiftOtter/Inventory/Override/items_renderer_default.phtml</template></action>
+            <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>SwiftOtter/Inventory/Override/sales_items_column_qty.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+</layout>

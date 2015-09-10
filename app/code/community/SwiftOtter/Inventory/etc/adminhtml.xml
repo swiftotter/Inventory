@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <sales>
+            <children>
+                <backorders>
+                    <title>Backorders</title>
+                    <sort_order>31</sort_order>
+                    <children>
+                        <open_backorders>
+                            <title>Open Backorders</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/inventory_report/currentbackorders</action>
+                        </open_backorders>
+                        <shippable_backorders>
+                            <title>Shippable Backorders</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/inventory_report/shippablebackorders</action>
+                        </shippable_backorders>
+                    </children>
+                </backorders>
+            </children>
+        </sales>
+        <catalog>
+            <children>
+                <inventory>
+                    <title>Inventory</title>
+                    <sort_order>1010</sort_order>
+                    <children>
+                        <mass_edit>
+                            <title>Mass Edit</title>
+                            <sort_order>100</sort_order>
+                            <action>adminhtml/inventory_edit/index</action>
+                        </mass_edit>
+                        <adjustment_log>
+                            <title>Adjustment Log</title>
+                            <sort_order>200</sort_order>
+                            <action>adminhtml/inventory_report/adjustmentlog</action>
+                        </adjustment_log>
+                    </children>
+                </inventory>
+
+                <manage_vendors>
+                    <title>Vendors</title>
+                    <sort_order>1020</sort_order>
+                    <action>adminhtml/vendor/index</action>
+                </manage_vendors>
+            </children>
+        </catalog>
+        <report>
+            <children>
+                <inventory>
+                    <title>Inventory Reports</title>
+                    <sort_order>1030</sort_order>
+                    <children>
+                        <stock_status>
+                            <title>Stock Status</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/inventory_report/stockstatus</action>
+                        </stock_status>
+                        <vendor_inventory>
+                            <title>By Vendor</title>
+                            <action>adminhtml/inventory_report/vendor</action>
+                            <sort_order>20</sort_order>
+                        </vendor_inventory>
+                        <vendor_product>
+                            <title>By Product</title>
+                            <action>adminhtml/inventory_report/vendorproduct</action>
+                            <sort_order>30</sort_order>
+                        </vendor_product>
+                    </children>
+                </inventory>
+                <sales_ordering>
+                    <title>Sales/Ordering</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/inventory_report/salesOrdering</action>
+                </sales_ordering>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <manage_vendors>
+                                <title>Vendors</title>
+                            </manage_vendors>
+                            <mass_edit>
+                                <title>Inventory Mass Edit</title>
+                            </mass_edit>
+                        </children>
+                    </catalog>
+                    <report>
+                        <children>
+                            <inventory>
+                                <title>Inventory Reports</title>
+                            </inventory>
+                        </children>
+                    </report>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+
+</config>

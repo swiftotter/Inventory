@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    var external = $('allow_edit_qty_available');
+    if (external) {
+        external.observe('change', function() {
+            var internal = $('allow_edit_qty_available_internal');
+            if (internal) {
+                internal.setValue(external.checked ? external.getValue() : '');
+                if (updateEditCapabilities){
+                    updateEditCapabilities();
+                }
+            }
+        });
+    }
+</script>
